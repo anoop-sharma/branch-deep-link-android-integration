@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.terasoltechnologies.branchdeeplink">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:name=".deepLinkApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="true">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Branch URI Scheme -->
+            <intent-filter>
+            	<!-- Replace with your app link -->
+                <data android:scheme="youapplink://" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+
+            <!-- Branch App Links (optional) -->
+            <intent-filter
+                android:autoVerify="true"
+                tools:targetApi="m">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Replace with your app domain -->
+                <data android:scheme="https" android:host="branch.app.link" />
+                <!-- example-alternate domain is required for App Links when the Journeys/Web SDK and Deepviews are used inside your website.  -->
+                <data android:scheme="https" android:host="branch-alternate.app.link" />
+            </intent-filter>
+        </activity>
+
+        <!-- Branch init -->
+        <!-- Replace with your branch live key -->
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="your_live_branch_key" />
+        <!-- Replace with your branch test key -->
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="your_test_branch_key" />
+        <!-- Set to true to use Branch_Test_Key (useful when simulating installs and/or switching between debug and production flavors) -->
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />
+
+    </application>
+
+</manifest>
